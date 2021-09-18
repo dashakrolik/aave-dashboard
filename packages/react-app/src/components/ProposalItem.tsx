@@ -1,10 +1,11 @@
 import { StyledCard } from '../styled-components/Card';
 
 import StateChip from './StateChip';
-import { useState, useContext } from "react"
-import ProposalContext from './ProposalsContext';
+import { useState } from "react"
+import ShowMoreButton from './ShowMoreButton';
 interface IProposalItemProps {
   proposalItem: TProposalItem;
+  onClick: (iteam: any) => void;
 };
 
 type TProposalItem = {
@@ -20,21 +21,12 @@ const ProposalItem = (props: IProposalItemProps) => {
     { id, aipNumber, title, state }
   } = props;
 
-  const [selected, setSelected] = useState<any>({});
-  const value = { selected, setSelected };
-
-  const setSelectedProposal = () => {
-    setSelected(props.proposalItem);
-    console.log(value)
-  }
-
   return (
-    <ProposalContext.Provider value={value}>
-      <StyledCard key={id} onClick={() => setSelectedProposal()}>
+      <StyledCard key={id}>
         <p style={{ fontSize: '14px' }}>AIP {aipNumber}:  {title}</p>
+        <ShowMoreButton proposalItem={props.proposalItem} onClick={props.onClick} />
         <StateChip state={state} />
       </StyledCard>
-    </ProposalContext.Provider>
   );
 };
 

@@ -1,6 +1,7 @@
 import ProposalItem from "./ProposalItem";
 interface IProposalItemListProps {
   data: any;
+  onClick: (item: any) => void;
 };
 
 const ProposalItemList = (props: IProposalItemListProps) => {
@@ -12,7 +13,7 @@ const ProposalItemList = (props: IProposalItemListProps) => {
           flexDirection: 'column',
           padding: '16px 32px 24px 16px'
         }}>
-          <ProposalItem proposalItem={item} />
+          <ProposalItem proposalItem={item} onClick={props.onClick}/>
         </div>
       ))}
 

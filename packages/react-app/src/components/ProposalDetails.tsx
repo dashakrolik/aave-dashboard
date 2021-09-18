@@ -1,13 +1,9 @@
 import Card from '@material-ui/core/Card';
-import { useContext } from 'react';
-import ProposalContext from './ProposalsContext';
 
-const ProposalDetails = () => {
-  const selected: any = useContext(ProposalContext);
-
+const ProposalDetails = (props: any) => {
   return (
     <Card>
-      {selected.title}
+      <p style={{ color: 'black' }}>{props.proposalItem.title || "yo"}</p>
     </Card>
   );
 };
