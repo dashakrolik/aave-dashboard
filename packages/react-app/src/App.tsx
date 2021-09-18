@@ -1,14 +1,15 @@
 import { useQuery } from "@apollo/react-hooks";
 import { Contract } from "@ethersproject/contracts";
 import { getDefaultProvider } from "@ethersproject/providers";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { Body, Button, Header, Image, Link } from "./components";
-import logo from "./ethereumLogo.png";
+import { Body, Button, Header } from "./styled-components";
 import useWeb3Modal from "./hooks/useWeb3Modal";
 
 import { addresses, abis } from "@project/contracts";
 import GET_TRANSFERS from "./graphql/subgraph";
+
+import Tabs from "./components/Tabs";
 
 async function readOnChainData() {
   // Should replace with the end-user wallet, e.g. Metamask
@@ -31,7 +32,6 @@ function WalletButton({ provider, loadWeb3Modal, logoutOfWeb3Modal }) {
         if (!provider) {
           return;
         }
-
         // Load the user's accounts.
         const accounts = await provider.listAccounts();
         setAccount(accounts[0]);
@@ -74,33 +74,24 @@ function App() {
   const { loading, error, data } = useQuery(GET_TRANSFERS);
   const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!loading && !error && data && data.transfers) {
       console.log({ transfers: data.transfers });
     }
   }, [loading, error, data]);
 
   return (
-    <div>
+    <>
       <Header>
         <WalletButton provider={provider} loadWeb3Modal={loadWeb3Modal} logoutOfWeb3Modal={logoutOfWeb3Modal} />
-      </Header>
-      <Body>
-        <Image src={logo} alt="react-logo" />
-        <p>
-          Edit <code>packages/react-app/src/App.js</code> and save to reload.
-        </p>
-        {/* Remove the "hidden" prop and open the JavaScript console in the browser to see what this function does */}
-        <Button hidden onClick={() => readOnChainData()}>
+        <Button onClick={() => readOnChainData()}>
           Read On-Chain Balance
         </Button>
-        <Link href="https://ethereum.org/developers/#getting-started" style={{ marginTop: "8px" }}>
-          Learn Ethereum
-        </Link>
-        <Link href="https://reactjs.org">Learn React</Link>
-        <Link href="https://thegraph.com/docs/quick-start">Learn The Graph</Link>
+      </Header>
+      <Body>
+        <Tabs />
       </Body>
-    </div>
+    </>
   );
 }
 
