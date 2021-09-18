@@ -7,7 +7,7 @@ import { addresses, abis } from "@project/contracts";
 
 import { Button, } from "../styled-components";
 import useWeb3Modal from "../hooks/useWeb3Modal";
-import GET_TRANSFERS from "../graphql/subgraph";
+import GET_TRANSFERS from "../graphql/get-transfers";
 
 async function readOnChainData() {
   // Should replace with the end-user wallet, e.g. Metamask

@@ -4,9 +4,10 @@ import Typography from '@material-ui/core/Typography';
 
 import { StyledTab, StyledTabs } from "../styled-components/Tabs";
 import { useQuery } from "@apollo/react-hooks";
-import GET_TRANSFERS from "../graphql/subgraph";
+
 import useWeb3Modal from "../hooks/useWeb3Modal";
 import GET_PROPOSALS from "../graphql/get-proposals";
+import ProposalItemList from "./ProsalItemList";
 
 const Tabs = () => {
   const [value, setValue] = useState(0);
@@ -35,10 +36,11 @@ const Tabs = () => {
         {value === index && (
           <div
             style={{
+              overflow: 'auto',
               height: '100vh',
               marginRight: '16px',
               marginLeft: '16px',
-              borderRadius: '0 10px 0 0',
+              // borderRadius: '0 10px 0 0',
               background: 'linear-gradient(180deg, #943BF3 0%, #5327EE 100%)',
             }}
           >
@@ -70,7 +72,7 @@ const Tabs = () => {
         </Box>
 
         <TabPanel value={value} index={0}>
-          Item One
+          <ProposalItemList data={data?.proposals}/>
         </TabPanel>
         <TabPanel value={value} index={1}>
           Item Two
