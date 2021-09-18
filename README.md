@@ -2,4 +2,4 @@
 
 ## Designs
 
-![Dashboard](Dashboard.png)
+![Dashboard](https://raw.githubusercontent.com/dashakrolik/aave-dashboard/main/Dashboard.PNG)
