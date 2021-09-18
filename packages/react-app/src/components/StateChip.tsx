@@ -28,7 +28,6 @@ const StateChip = (props: IStateChipProps) => {
         backgroundColor: chipColor,
         background: state === 'Active' ? 'linear-gradient(-45deg, #9d56ee, #3318e1)' : chipColor
       }}>
-
       </div>
       <p className="chip-label">{state}</p>
     </div>

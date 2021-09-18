@@ -8,6 +8,7 @@ import { useQuery } from "@apollo/react-hooks";
 import useWeb3Modal from "../hooks/useWeb3Modal";
 import GET_PROPOSALS from "../graphql/get-proposals";
 import ProposalItemList from "./ProsalItemList";
+import ProposalContext from "./ProposalsContext";
 
 const Tabs = () => {
   const [value, setValue] = useState(0);
@@ -52,33 +53,35 @@ const Tabs = () => {
     );
   }
   return (
-    <div style={{ position: "fixed", top: "70px", width: "100%" }}>
-      <Box sx={{ width: '100%' }}>
-        <Box sx={{
-          bgcolor: 'rgb(71 6 182 / 81%);',
-          width: 'fit-content',
-          marginRight: '16px',
-          marginLeft: '16px',
-          borderRadius: '10px 10px 0 0'
-        }}>
-          <StyledTabs
-            value={value}
-            onChange={handleChange}
-            aria-label="styled tabs example"
-          >
-            <StyledTab label="On-chain" />
-            <StyledTab label="Snapshot" />
-          </StyledTabs>
-        </Box>
+    <ProposalContext.Provider value={data}>
+      <div style={{ position: "fixed", top: "70px", width: "100%" }}>
+        <Box sx={{ width: '75%' }}>
+          <Box sx={{
+            bgcolor: 'rgb(71 6 182 / 81%);',
+            width: 'fit-content',
+            marginRight: '16px',
+            marginLeft: '16px',
+            borderRadius: '10px 10px 0 0'
+          }}>
+            <StyledTabs
+              value={value}
+              onChange={handleChange}
+              aria-label="styled tabs example"
+            >
+              <StyledTab label="On-chain" />
+              <StyledTab label="Snapshot" />
+            </StyledTabs>
+          </Box>
 
-        <TabPanel value={value} index={0}>
-          <ProposalItemList data={data?.proposals}/>
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          Item Two
-        </TabPanel>
-      </Box>
-    </div>
+          <TabPanel value={value} index={0}>
+            <ProposalItemList data={data?.proposals} />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            Item Two
+          </TabPanel>
+        </Box>
+      </div>
+    </ProposalContext.Provider>
   );
 }
 
