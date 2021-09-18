@@ -15,6 +15,7 @@ import useWeb3Modal from "./hooks/useWeb3Modal";
 
 import { addresses, abis } from "@project/contracts";
 import GET_TRANSFERS from "./graphql/subgraph";
+import { AntTab, AntTabs, StyledTab, StyledTabs } from "./components/Tabs";
 
 async function readOnChainData() {
   // Should replace with the end-user wallet, e.g. Metamask
@@ -109,34 +110,54 @@ function App() {
         {...other}
       >
         {value === index && (
-          <Box sx={{ p: 3 }}>
+          <div
+            style={{
+              height: '100vh',
+              marginRight: '16px',
+              marginLeft: '16px',
+              background: 'linear-gradient(180deg, #943BF3 0%, #5327EE 100%)',
+            }}
+          >
             <Typography>{children}</Typography>
-          </Box>
-        )}
-      </div>
+          </div>
+        )
+        }
+      </div >
     );
   }
   return (
     <div>
-      <Header>
+      {/* <Header>
         <WalletButton provider={provider} loadWeb3Modal={loadWeb3Modal} logoutOfWeb3Modal={logoutOfWeb3Modal} />
         <Button onClick={() => readOnChainData()}>
           Read On-Chain Balance
         </Button>
-      </Header>
+      </Header> */}
       <Body>
         {/* Remove the "hidden" prop and open the JavaScript console in the browser to see what this function does */}
-        <div style={{position: "fixed", top:"70px", width:"100%"}}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="On-chain" {...a11yProps(0)} />
-          <Tab label="Snapshot" {...a11yProps(1)} />
-        </Tabs>
-        <TabPanel value={value} index={0}>
-          Item One
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          Item Two
-        </TabPanel>
+        <div style={{ position: "fixed", top: "70px", width: "100%" }}>
+          <Box sx={{ width: '100%' }}>
+            <Box sx={{
+              bgcolor: 'rgb(71 6 182 / 81%);', width: 'fit-content', marginRight: '16px',
+              marginLeft: '16px',
+            }}>
+              <StyledTabs
+                value={value}
+                onChange={handleChange}
+                aria-label="styled tabs example"
+              >
+                <StyledTab label="On-chain" />
+                <StyledTab label="Snapshot" />
+              </StyledTabs>
+            </Box>
+
+            <TabPanel value={value} index={0}>
+              Item One
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              Item Two
+            </TabPanel>
+          </Box>
         </div>
       </Body>
     </div>
