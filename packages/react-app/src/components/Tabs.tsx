@@ -1,39 +1,71 @@
-import { styled } from '@material-ui/core/styles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import React, { useState } from "react";
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 
-export const StyledTabs: any = styled((props) => (
-  <Tabs
-    {...props}
-    TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }}
-  />
-))({
-  '& .MuiTabs-indicator': {
-    display: 'flex',
-    justifyContent: 'center',
-    backgroundColor: 'transparent',
-  },
-  '& .MuiTabs-indicatorSpan': {
-    // maxWidth: 40,
-    height: '4px',
-    width: '100%',
-    position: 'absolute',
-    bottom: 0,
-    backgroundColor: '#60D0FD;',
-  },
-});
+import { StyledTab, StyledTabs } from "../styled-components/Tabs";
 
-export const StyledTab: any = styled((props) => <Tab disableRipple {...props} />)(
-  ({ theme }) => ({
-    textTransform: 'none',
-    fontWeight: theme.typography.fontWeightRegular,
-    fontSize: theme.typography.pxToRem(15),
-    color: 'rgba(255, 255, 255, 0.7)',
-    '&.Mui-selected': {
-      color: '#fff',
-    },
-    '&.Mui-focusVisible': {
-      backgroundColor: 'rgba(100, 95, 228, 0.32)',
-    },
-  }));
+const Tabs = () => {
+  const [value, setValue] = useState(0);
 
+  const handleChange = (_event: any, newValue: any) => setValue(newValue);
+
+  const TabPanel = (props: any) => {
+    const { children, value, index, ...other } = props;
+
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <div
+            style={{
+              height: '100vh',
+              marginRight: '16px',
+              marginLeft: '16px',
+              borderRadius: '0 10px 0 0',
+              background: 'linear-gradient(180deg, #943BF3 0%, #5327EE 100%)',
+            }}
+          >
+            <Typography>{children}</Typography>
+          </div>
+        )
+        }
+      </div >
+    );
+  }
+  return (
+    <div style={{ position: "fixed", top: "70px", width: "100%" }}>
+      <Box sx={{ width: '100%' }}>
+        <Box sx={{
+          bgcolor: 'rgb(71 6 182 / 81%);',
+          width: 'fit-content',
+          marginRight: '16px',
+          marginLeft: '16px',
+          borderRadius: '10px 10px 0 0'
+        }}>
+          <StyledTabs
+            value={value}
+            onChange={handleChange}
+            aria-label="styled tabs example"
+          >
+            <StyledTab label="On-chain" />
+            <StyledTab label="Snapshot" />
+          </StyledTabs>
+        </Box>
+
+        <TabPanel value={value} index={0}>
+          Item One
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          Item Two
+        </TabPanel>
+      </Box>
+    </div>
+  );
+}
+
+export default Tabs;
