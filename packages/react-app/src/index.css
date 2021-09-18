@@ -35,3 +35,25 @@ code {
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(177, 137, 216);
 }
+
+.chip {
+  width: 80px;
+  height: 30px;
+  background-color: rgb(157, 77, 249);
+  border-radius: 50px;
+  display: flex;
+  position: relative;
+}
+
+.chip-label {
+  font-size: 12px;
+  text-align: center;
+  vertical-align: middle;
+  position: absolute;
+  top: -5px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: rgb(255, 255, 255);
+  font-weight: 700;
+}

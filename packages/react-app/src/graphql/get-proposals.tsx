@@ -5,6 +5,8 @@ const GET_PROPOSALS = gql`
     proposals(first: 50, orderBy: aipNumber, orderDirection: desc) {
       id
       state
+      title
+      aipNumber
       ipfsHash
       creator
       shortDescription
