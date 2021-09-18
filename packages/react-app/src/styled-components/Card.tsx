@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 
 export const StyledCard: any = styled((props) => <Card {...props} />)(
   ({ theme }) => ({
-    height: '80px',
+    height: 'fit-content',
     width: '100%',
     padding: '8px'
   }));

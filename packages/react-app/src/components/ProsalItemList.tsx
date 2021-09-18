@@ -10,7 +10,7 @@ const ProposalItemList = (props: IProposalItemListProps) => {
         <div style={{
           display: 'flex',
           flexDirection: 'column',
-          padding: '16px'
+          padding: '16px 32px 24px 16px'
         }}>
           <ProposalItem proposalItem={item} />
         </div>
