@@ -3,19 +3,14 @@ import { Contract } from "@ethersproject/contracts";
 import { getDefaultProvider } from "@ethersproject/providers";
 import React, { useEffect, useState } from "react";
 import Box from '@material-ui/core/Box';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
-
 import Typography from '@material-ui/core/Typography';
-
-
 
 import { Body, Button, Header } from "./components";
 import useWeb3Modal from "./hooks/useWeb3Modal";
 
 import { addresses, abis } from "@project/contracts";
 import GET_TRANSFERS from "./graphql/subgraph";
-import { AntTab, AntTabs, StyledTab, StyledTabs } from "./components/Tabs";
+import { StyledTab, StyledTabs } from "./components/Tabs";
 
 async function readOnChainData() {
   // Should replace with the end-user wallet, e.g. Metamask
@@ -78,25 +73,17 @@ function WalletButton({ provider, loadWeb3Modal, logoutOfWeb3Modal }) {
 }
 
 function App() {
+  const [value, setValue] = useState(0);
   const { loading, error, data } = useQuery(GET_TRANSFERS);
   const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!loading && !error && data && data.transfers) {
       console.log({ transfers: data.transfers });
     }
   }, [loading, error, data]);
-  const a11yProps = (index: any) => {
-    return {
-      id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
-    };
-  }
-  const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: any, newValue: any) => {
-    setValue(newValue);
-  };
+  const handleChange = (event: any, newValue: any) => setValue(newValue);
 
   const TabPanel = (props: any) => {
     const { children, value, index, ...other } = props;
@@ -115,6 +102,7 @@ function App() {
               height: '100vh',
               marginRight: '16px',
               marginLeft: '16px',
+              borderRadius: '0 10px 0 0',
               background: 'linear-gradient(180deg, #943BF3 0%, #5327EE 100%)',
             }}
           >
@@ -127,19 +115,22 @@ function App() {
   }
   return (
     <div>
-      {/* <Header>
+      <Header>
         <WalletButton provider={provider} loadWeb3Modal={loadWeb3Modal} logoutOfWeb3Modal={logoutOfWeb3Modal} />
         <Button onClick={() => readOnChainData()}>
           Read On-Chain Balance
         </Button>
-      </Header> */}
+      </Header>
       <Body>
         {/* Remove the "hidden" prop and open the JavaScript console in the browser to see what this function does */}
         <div style={{ position: "fixed", top: "70px", width: "100%" }}>
           <Box sx={{ width: '100%' }}>
             <Box sx={{
-              bgcolor: 'rgb(71 6 182 / 81%);', width: 'fit-content', marginRight: '16px',
+              bgcolor: 'rgb(71 6 182 / 81%);', 
+              width: 'fit-content', 
+              marginRight: '16px',
               marginLeft: '16px',
+              borderRadius: '10px 10px 0 0'
             }}>
               <StyledTabs
                 value={value}
