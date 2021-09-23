@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
@@ -9,6 +9,7 @@ import useWeb3Modal from "../hooks/useWeb3Modal";
 import GET_PROPOSALS from "../graphql/get-proposals";
 import ProposalItemList from "./ProsalItemList";
 import ProposalDetails from "./ProposalDetails";
+import OnChainProposals from "./OnChainProposals";
 
 const Tabs = () => {
   const [value, setValue] = useState(0);
@@ -72,8 +73,8 @@ const Tabs = () => {
             onChange={handleChange}
             aria-label="styled tabs example"
           >
-            <StyledTab label="On-chain" />
             <StyledTab label="Snapshot" />
+            <StyledTab label="On-Chain" />
           </StyledTabs>
         </Box>
 
@@ -81,7 +82,7 @@ const Tabs = () => {
           <ProposalItemList data={data?.proposals} onClick={OnProposalClick} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Item Two
+          <OnChainProposals data={[]} />
         </TabPanel>
       </Box>
       <Box sx={{ width: '20%' }}>

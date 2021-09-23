@@ -36,6 +36,7 @@
     "chalk": "^4.1.1",
     "eslint": "^7.29.0",
     "eslint-plugin-flowtype": "^5.7.2",
+    "ethers": "^5.4.7",
     "graphql": "^15.5.0",
     "ipfs-http-client": "^50.1.2",
     "react": "17.0.2",

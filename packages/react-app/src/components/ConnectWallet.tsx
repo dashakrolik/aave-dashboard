@@ -4,7 +4,7 @@ import { Contract } from "@ethersproject/contracts";
 import { getDefaultProvider } from "@ethersproject/providers";
 
 import { addresses, abis } from "@project/contracts";
-
+import { ethers } from "ethers";
 import { Button, } from "../styled-components";
 import useWeb3Modal from "../hooks/useWeb3Modal";
 import GET_TRANSFERS from "../graphql/get-transfers";
@@ -34,6 +34,7 @@ const ConnectWallet = () => {
 function WalletButton({ provider, loadWeb3Modal, logoutOfWeb3Modal }) {
   const [account, setAccount] = useState("");
   const [rendered, setRendered] = useState("");
+  const [balance, setBlanace] = useState("");
 
   useEffect(() => {
     async function fetchAccount() {
@@ -63,7 +64,42 @@ function WalletButton({ provider, loadWeb3Modal, logoutOfWeb3Modal }) {
     fetchAccount();
   }, [account, provider, setAccount, setRendered]);
 
+
+  const testConnectToAave = async () => {
+    try {
+      if (!provider) {
+        return;
+      }
+      const balanceTest = await provider.getTransactionCount("0x8a2Efd9A790199F4c94c6effE210fce0B4724f52")
+      // const formattedBalance = ethers.utils.formatEther(balanceTest);
+      // "0x8a2Efd9A790199F4c94c6effE210fce0B4724f52"
+      
+      const contract = new ethers.Contract(
+        "0x8a2Efd9A790199F4c94c6effE210fce0B4724f52",
+        abis.erc20,
+        provider.getSigner(0),
+        )
+        console.log(contract)
+      // )
+      let eventFilter = contract.filters.Approval()
+        console.log(eventFilter, " eventFilter")
+      // let events = await contract.queryFilter(eventFilter)
+    
+      if (balanceTest) {
+        setBlanace(balanceTest);
+        console.log(balanceTest)
+      } else {
+        console.log(balanceTest)
+        setBlanace(balanceTest);
+      }
+    } catch (err) {
+      setBlanace("");
+      console.error(err);
+    }
+  }
+
   return (
+    <>
     <Button
       onClick={() => {
         if (!provider) {
@@ -76,6 +112,10 @@ function WalletButton({ provider, loadWeb3Modal, logoutOfWeb3Modal }) {
       {rendered === "" && "Connect Wallet"}
       {rendered !== "" && " disconnect from: " + rendered}
     </Button>
+    <Button onClick={() => {
+      testConnectToAave();
+    }}>console.log</Button>
+    </>
   );
 }
 
