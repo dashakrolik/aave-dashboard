@@ -6,8 +6,6 @@ import { getDefaultProvider } from "@ethersproject/providers";
 import { addresses, abis } from "@project/contracts";
 import { ethers, Signer } from "ethers";
 
-
-
 import { StyledButton, } from "../styled-components";
 import useWeb3Modal from "../hooks/useWeb3Modal";
 import GET_TRANSFERS from "../graphql/get-transfers";
@@ -40,8 +38,57 @@ const ConnectWallet = () => {
     const [rendered, setRendered] = useState("");
     const [proposalDetails, setProposalDetails] = useState<any>({});
 
+    // const [onChainData, setOnChainData] = useState<any>([]);
+
+    const fetchOnChainData = async () => {
+
+      const network = "homestead";
+
+      // Specify your own API keys
+      // Each is optional, and if you omit it the default
+      // API key for that service will be used.
+      // const provider = ethers.getDefaultProvider(network, {
+      //   // Old API Key that has been pushed before.
+      //   infura: "001691a4a3fe4cd6ad500ba14268e7f3",
+      // });
+
+      // const governanceV2HelperContract = new ethers.Contract(
+      //   "0x16ff7583ea21055bf5f929ec4b896d997ff35847", // GovernanceV2Helper address
+      //   abis.aaveGovHelper,
+      //   provider,
+      // );
+
+      // const data = await governanceV2HelperContract.getProposals(
+      //   "0",
+      //   "0xFFFFFFFF",
+      //   "0xEC568fffba86c094cf06b22134B23074DFE2252c"
+      // );
+
+      // const promiseArray = [] as any;
+      // const array = [] as any;
+      // for (let i = 0; i < data.length; i++) {
+      //   const cid = parseIpfsHash(data[i].ipfsHash);
+
+      //   promiseArray.push(
+      //     new Promise((resolve, reject) => {
+      //       resolve(get(cid));
+      //     })
+      //   );
+
+      //   array.push({
+      //     forVotes: data[i].forVotes.toString(),
+      //     againstVotes: data[i].againstVotes.toString(),
+      //     proposalState: data[i].proposalState,
+      //     ipfsHash: data[i].ipfsHash,
+      //     id: data[i].id,
+      //   });
+      // }
+
+    }
     useEffect(() => {
       async function fetchAccount() {
+        // const onChain = await fetchOnChainData();
+        // setOnChainData(onChain);
         try {
           if (!provider) {
             return;
@@ -60,7 +107,6 @@ const ConnectWallet = () => {
           if (name) {
             setRendered(name);
 
-
           } else {
             setRendered(account.substring(0, 6) + "..." + account.substring(36));
           }
@@ -74,74 +120,57 @@ const ConnectWallet = () => {
     }, [account, provider, setAccount, setRendered]);
 
 
+    // const parseIpfsHash = (ipfsHash: string) => {
+    //   const format = "12" + "20" + ipfsHash.substring(2);
+    //   const cid = require("bs58").encode(Buffer.from(format, "hex"));
+    //   return cid;
+
+    // }
+
+    // const { create } = require("ipfs-http-client");
+
+    // const ipfs = create({
+    //   host: "ipfs.infura.io",
+    //   port: "5001",
+    //   protocol: "https",
+    // });
+
+    // async function get(cid: string) {
+    //   const catFile = await ipfs.cat(cid);
+    //   const buffers = [];
+    //   for await (const item of catFile) {
+    //     buffers.push(Buffer.from(item));
+    //   }
+    //   const file = Buffer.concat(buffers);
+    //   return file.toString();
+    // }
+    
     // const testConnectToAave = async () => {
+
+
     //   try {
     //     if (!provider) {
     //       return;
     //     }
-    //     const balanceTest = await provider.getTransactionCount("0xEC568fffba86c094cf06b22134B23074DFE2252c")
-    //     // const formattedBalance = ethers.utils.formatEther(balanceTest);
-    //     // "0x8a2Efd9A790199F4c94c6effE210fce0B4724f52"
 
-    //     const contract = new ethers.Contract(
-    //       "0x8a2Efd9A790199F4c94c6effE210fce0B4724f52",
-    //       abis.erc20,
-    //       provider.getSigner(0),
-    //     )
-    //     console.log(contract)
-    //     // )
-    //     let eventFilter = contract.filters.Approval()
-    //     console.log(eventFilter, " eventFilter")
-    //     // let events = await contract.queryFilter(eventFilter)
-    //     const filter = {
-    //       address: "0x8a2Efd9A790199F4c94c6effE210fce0B4724f52",
-    //       topics: [
-    //         // the name of the event, parnetheses containing the data type of each event, no spaces
-    //         "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925"
-    //       ]
-    //     }
-    //     const test = async () => provider.on(eventFilter, (res: any) => {
-    //       console.log(res, 'res')
-    //     })
-    //     test()
-    //     if (balanceTest) {
-    //       setBlanace(balanceTest);
+    //     const aaveGovHelper = new ethers.Contract(
+    //       "0x16ff7583ea21055bf5f929ec4b896d997ff35847", // GovernanceV2Helper address
+    //       abis.aaveGovHelper,
+    //       provider,
+    //     );
+    //     const AaveGovernanceV2 = "0xEC568fffba86c094cf06b22134B23074DFE2252c";
+    //     const proposalId = 25;
 
-    //       console.log(balanceTest)
-    //     } else {
-    //       console.log(balanceTest)
-    //       setBlanace(balanceTest);
+    //     // Get details of proposal with given id
+    //     const proposalDetails = await aaveGovHelper?.proposal(proposalId, AaveGovernanceV2);
+    //     console.log(proposalDetails)
+    //     setProposalDetails(proposalDetails);
+    //     if (proposalDetails) console.log(proposalDetails)
 
-    //     }
     //   } catch (err) {
-    //     setBlanace("");
     //     console.error(err);
     //   }
     // }
-
-     const testConnectToAave = async () => {
-      try {
-        if (!provider) {
-          return;
-        }
-
-        const aaveGovHelper = new ethers.Contract(
-          "0x16ff7583ea21055bf5f929ec4b896d997ff35847", // GovernanceV2Helper address
-          abis.erc20,
-          signer,
-        );
-        const AaveGovernanceV2 = "0xEC568fffba86c094cf06b22134B23074DFE2252c";
-        const proposalId = 25;
-
-        // Get details of proposal with given id
-        const proposalDetails = await aaveGovHelper.proposal(proposalId, AaveGovernanceV2);
-        setProposalDetails(proposalDetails);
-        if (proposalDetails) console.log(proposalDetails)
-
-      } catch (err) {
-        console.error(err);
-      }
-    }
 
 
     return (
@@ -158,9 +187,9 @@ const ConnectWallet = () => {
           {rendered === "" && "Connect Wallet"}
           {rendered !== "" && " disconnect from: " + rendered}
         </StyledButton>
-        <StyledButton onClick={() => {
-          testConnectToAave();
-        }}>console.log</StyledButton>
+        {/* <StyledButton onClick={() => {
+          console.log(onChainData)
+        }}>console.log</StyledButton> */}
       </>
     );
   }
