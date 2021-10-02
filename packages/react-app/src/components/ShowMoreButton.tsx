@@ -9,7 +9,7 @@ const ShowMoreButton = (props: IProposalItemProps) => {
   const { proposalItem, onClick } = props;
 
   return (
-    <Button size="small" color="primary" onClick={(e) => onClick(e, proposalItem)}>
+    <Button size='small' color='primary' onClick={(e) => onClick(e, proposalItem)}>
       <span style={{ color: 'white' }}>show details</span>
     </Button>
   );

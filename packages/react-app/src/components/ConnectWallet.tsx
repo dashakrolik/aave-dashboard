@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 // import { addresses, abis } from "@project/contracts";
 // import { ethers, Signer } from "ethers";
 
-import { StyledButton, } from "../styled-components";
 import useWeb3Modal from "../hooks/useWeb3Modal";
 import { Button } from "@material-ui/core";
 // import GET_TRANSFERS from "../graphql/get-transfers";
@@ -175,8 +174,8 @@ const ConnectWallet = () => {
     return (
       <div style={{marginRight: '16px'}}>
         <Button
-          variant="outlined"
-          color="primary"
+          variant='outlined'
+          color='primary'
           onClick={() => {
             if (!provider) {
               loadWeb3Modal();
@@ -185,8 +184,8 @@ const ConnectWallet = () => {
             }
           }}
         >
-          {rendered === "" && "Connect Wallet"}
-          {rendered !== "" && " disconnect from: " + rendered}
+          {rendered === '' && 'Connect Wallet'}
+          {rendered !== '' && ' disconnect from: ' + rendered}
         </Button>
       </div>
     );

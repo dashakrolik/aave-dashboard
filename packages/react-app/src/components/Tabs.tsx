@@ -11,6 +11,7 @@ import ProposalDetails from "./ProposalDetails";
 import OnChainProposals from "./OnChainProposals";
 import { CircularProgress } from "@material-ui/core";
 
+// @TODO: add error handler
 const Tabs = () => {
   const [value, setValue] = useState(0);
   const { loading, error, data } = useQuery(GET_PROPOSALS);
@@ -23,7 +24,7 @@ const Tabs = () => {
 
     return (
       <div
-        role="tabpanel"
+        role='tabpanel'
         hidden={value !== index}
         id={`simple-tabpanel-${index}`}
         aria-labelledby={`simple-tab-${index}`}
@@ -57,6 +58,7 @@ const Tabs = () => {
   }
 
   const OnProposalClick = (e: React.MouseEvent<HTMLElement>, item: TProposalItem) => {
+    // @TODO: fix bug where clicking on show details makes the page scroll to top
     e.preventDefault();
     setSelected(item);
   };
@@ -74,10 +76,10 @@ const Tabs = () => {
           <StyledTabs
             value={value}
             onChange={handleChange}
-            aria-label="styled tabs example"
+            aria-label='styled tabs'
           >
-            <StyledTab label="Snapshot" />
-            <StyledTab label="On-Chain" />
+            <StyledTab label='Snapshot' />
+            <StyledTab label='On-Chain' />
           </StyledTabs>
         </Box>
         <TabPanel value={value} index={0}>
@@ -88,7 +90,7 @@ const Tabs = () => {
         </TabPanel>
       </Grid>
       <Grid item sm={4}>
-        <Box sx={{ width: '92%', marginTop: "48px" }}>
+        <Box sx={{ width: '92%', marginTop: '48px' }}>
           <ProposalDetails proposalItem={selected} />
         </Box>
       </Grid>
