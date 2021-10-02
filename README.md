@@ -4,6 +4,10 @@
 
 From the root of the project run `yarn react-app:start`
 
+## Description
+
+This app shows a list of recent Aave governance proposals.
+
 ## Wireframes
 
 ![Dashboard](https://raw.githubusercontent.com/dashakrolik/aave-dashboard/main/Dashboard.PNG)
