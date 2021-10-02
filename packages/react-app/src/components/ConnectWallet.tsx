@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { useQuery } from "@apollo/react-hooks";
+// import { useQuery } from "@apollo/react-hooks";
 import { Contract } from "@ethersproject/contracts";
 import { getDefaultProvider } from "@ethersproject/providers";
 
 import { addresses, abis } from "@project/contracts";
-import { ethers, Signer } from "ethers";
+// import { ethers, Signer } from "ethers";
 
 import { StyledButton, } from "../styled-components";
 import useWeb3Modal from "../hooks/useWeb3Modal";
-import GET_TRANSFERS from "../graphql/get-transfers";
+// import GET_TRANSFERS from "../graphql/get-transfers";
 
 async function readOnChainData() {
   // Should replace with the end-user wallet, e.g. Metamask
@@ -22,27 +22,28 @@ async function readOnChainData() {
 }
 
 const ConnectWallet = () => {
-  const { loading, error, data } = useQuery(GET_TRANSFERS);
+  // const { loading, error, data } = useQuery(GET_TRANSFERS);
   const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
 
-  useEffect(() => {
-    if (!loading && !error && data && data.transfers) {
-      console.log({ transfers: data.transfers });
-    }
-  }, [loading, error, data]);
+  // @TODO: not used, delete
+  // useEffect(() => {
+  //   if (!loading && !error && data && data.transfers) {
+  //     console.log({ transfers: data.transfers });
+  //   }
+  // }, [loading, error, data]);
 
   // @ts-ignore
   function WalletButton({ provider, loadWeb3Modal, logoutOfWeb3Modal }) {
     const [account, setAccount] = useState("");
-    const [signer, setSigner] = useState<any>({});
+    // const [signer, setSigner] = useState<any>({});
     const [rendered, setRendered] = useState("");
-    const [proposalDetails, setProposalDetails] = useState<any>({});
+    // const [proposalDetails, setProposalDetails] = useState<any>({});
 
     // const [onChainData, setOnChainData] = useState<any>([]);
 
     const fetchOnChainData = async () => {
 
-      const network = "homestead";
+      // const network = "homestead";
 
       // Specify your own API keys
       // Each is optional, and if you omit it the default
@@ -95,10 +96,10 @@ const ConnectWallet = () => {
           }
           // Load the user's accounts.
           const accounts = await provider.listAccounts();
-          const signer = await provider.getSigner(0);
+          // const signer = await provider.getSigner(0);
 
           setAccount(accounts[0]);
-          setSigner(signer);
+          // setSigner(signer);
 
           // Resolve the ENS name for the first account.
           const name = await provider.lookupAddress(accounts[0]);
