@@ -1,10 +1,10 @@
+import { StyledCard } from "../styled-components/Card";
 import ProposalItem from "./ProposalItem";
 interface IProposalItemListProps {
-  data: TProposalItem[];
-  onClick: (e: React.MouseEvent<HTMLElement>, item: TProposalItem) => void;
+  data: any;
 };
 
-const ProposalItemList = (props: IProposalItemListProps) => {
+const OnChainProposals = (props: IProposalItemListProps) => {
   return (
     <>
       {props.data?.map((item: TProposalItem) => (
@@ -12,8 +12,9 @@ const ProposalItemList = (props: IProposalItemListProps) => {
           display: 'flex',
           flexDirection: 'column',
           padding: '16px 32px 24px 16px'
-        }} key={item?.id}>
-          <ProposalItem proposalItem={item} onClick={props.onClick} />
+        }}>
+          <StyledCard>
+          </StyledCard>
         </div>
       ))}
 
@@ -21,4 +22,4 @@ const ProposalItemList = (props: IProposalItemListProps) => {
   );
 }
 
-export default ProposalItemList;
+export default OnChainProposals;

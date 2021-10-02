@@ -20,23 +20,10 @@ export const Body = styled.div`
   justify-content: center;
   min-height: calc(100vh - 70px);
   margin: '16px';
+  overflow-x: 'hidden';
 `;
 
-export const Image = styled.img`
-  height: 40vmin;
-  margin-bottom: 16px;
-  pointer-events: none;
-`;
-
-export const Link = styled.a.attrs({
-  target: "_blank",
-  rel: "noopener noreferrer",
-})`
-  color: #61dafb;
-  margin-top: 10px;
-`;
-
-export const Button = styled.button`
+export const StyledButton = styled.button`
   background-color: white;
   border: none;
   border-radius: 8px;
