@@ -1,3 +1,5 @@
+import Button from '@material-ui/core/Button';
+
 interface IProposalItemProps {
   proposalItem: TProposalItem;
   onClick: (item: TProposalItem) => void;
@@ -14,7 +16,7 @@ type TProposalItem = {
 const ShowMoreButton = (props: IProposalItemProps) => {
 
   return (
-    <button onClick={() => props.onClick(props.proposalItem)}>showMore</button>
+    <Button variant="contained" onClick={() => props.onClick(props.proposalItem)}>showMore</Button>
   );
 };
 

@@ -13,7 +13,7 @@ const ProposalItemList = (props: IProposalItemListProps) => {
           flexDirection: 'column',
           padding: '16px 32px 24px 16px'
         }}>
-          <ProposalItem proposalItem={item} onClick={props.onClick}/>
+          <ProposalItem key={item?.id} proposalItem={item} onClick={props.onClick}/>
         </div>
       ))}
 

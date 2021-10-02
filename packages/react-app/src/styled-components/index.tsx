@@ -36,7 +36,7 @@ export const Link = styled.a.attrs({
   margin-top: 10px;
 `;
 
-export const Button = styled.button`
+export const StyledButton = styled.button`
   background-color: white;
   border: none;
   border-radius: 8px;
