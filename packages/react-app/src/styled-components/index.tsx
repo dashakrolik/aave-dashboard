@@ -20,6 +20,7 @@ export const Body = styled.div`
   justify-content: center;
   min-height: calc(100vh - 70px);
   margin: '16px';
+  overflow-x: 'hidden';
 `;
 
 export const Image = styled.img`

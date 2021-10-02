@@ -14,9 +14,12 @@ type TProposalItem = {
 };
 
 const ShowMoreButton = (props: IProposalItemProps) => {
+  const { proposalItem, onClick } = props;
 
   return (
-    <Button variant="contained" onClick={() => props.onClick(props.proposalItem)}>showMore</Button>
+    <Button size="small" color="primary" onClick={() => onClick(proposalItem)}>
+      <span style={{ color: 'white' }}>show details</span>
+    </Button>
   );
 };
 
