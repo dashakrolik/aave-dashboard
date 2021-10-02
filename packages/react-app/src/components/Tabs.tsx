@@ -1,28 +1,20 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-// import Item from '@material-ui/core/Item';
 
-import { StyledTab, StyledTabs } from "../styled-components/Tabs";
 import { useQuery } from "@apollo/react-hooks";
 
-// import useWeb3Modal from "../hooks/useWeb3Modal";
+import { StyledTab, StyledTabs } from "../styled-components/Tabs";
 import GET_PROPOSALS from "../graphql/get-proposals";
 import ProposalItemList from "./ProsalItemList";
 import ProposalDetails from "./ProposalDetails";
 import OnChainProposals from "./OnChainProposals";
+import { CircularProgress } from "@material-ui/core";
 
 const Tabs = () => {
   const [value, setValue] = useState(0);
   const { loading, error, data } = useQuery(GET_PROPOSALS);
   const [selected, setSelected] = useState<any>({});
-
-  useEffect(() => {
-    if (!loading && !error && data) {
-      console.log({ proposals: data.proposals });
-    }
-  }, [loading, error, data]);
 
   const handleChange = (_event: any, newValue: any) => setValue(newValue);
 
@@ -49,6 +41,14 @@ const Tabs = () => {
             }}
           >
             {children}
+            {loading && 
+              <div style={{
+                justifyContent: 'center',
+                display: 'flex',
+                marginTop: '32px'
+              }}>
+                <CircularProgress color="inherit" />
+              </div>}
           </div>
         )
         }
@@ -56,7 +56,8 @@ const Tabs = () => {
     );
   }
 
-  const OnProposalClick = (item: any) => {
+  const OnProposalClick = (e: React.MouseEvent<HTMLElement>, item: TProposalItem) => {
+    e.preventDefault();
     setSelected(item);
   };
 

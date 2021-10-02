@@ -5,26 +5,24 @@ import StateChip from './StateChip';
 import ShowMoreButton from './ShowMoreButton';
 interface IProposalItemProps {
   proposalItem: TProposalItem;
-  onClick: (item: any) => void;
-};
-
-type TProposalItem = {
-  id: string;
-  title: string;
-  aipNumber: number;
-  state: string;
-  shortDescription: string;
+  onClick: (e: React.MouseEvent<HTMLElement>, item: TProposalItem) => void;
 };
 
 const ProposalItem = (props: IProposalItemProps) => {
   const { proposalItem:
-    { id, aipNumber, title, state }, proposalItem, onClick
+    { id, aipNumber, title, state, currentYesVote, currentNoVote }, proposalItem, onClick
   } = props;
 
   return (
     <StyledCard key={id}>
       <p style={{ fontSize: '14px' }}>
         <strong>AIP {aipNumber}: </strong>{title}
+      </p>
+      <p style={{ fontSize: '14px' }}>
+        <strong>Yes votes: </strong>{currentYesVote}
+      </p>
+      <p style={{ fontSize: '14px' }}>
+        <strong>No votes: </strong>{currentNoVote}
       </p>
       <StateChip state={state} />
       <ShowMoreButton proposalItem={proposalItem} onClick={onClick} />

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 
 import { StyledButton, } from "../styled-components";
 import useWeb3Modal from "../hooks/useWeb3Modal";
+import { Button } from "@material-ui/core";
 // import GET_TRANSFERS from "../graphql/get-transfers";
 
 // async function readOnChainData() {
@@ -41,65 +42,62 @@ const ConnectWallet = () => {
 
     // const [onChainData, setOnChainData] = useState<any>([]);
 
-    const fetchOnChainData = async () => {
+    // const fetchOnChainData = async () => {
 
-      // const network = "homestead";
+    // const network = "homestead";
 
-      // Specify your own API keys
-      // Each is optional, and if you omit it the default
-      // API key for that service will be used.
-      // const provider = ethers.getDefaultProvider(network, {
-      //   // Old API Key that has been pushed before.
-      //   infura: "001691a4a3fe4cd6ad500ba14268e7f3",
-      // });
+    // Specify your own API keys
+    // Each is optional, and if you omit it the default
+    // API key for that service will be used.
+    // const provider = ethers.getDefaultProvider(network, {
+    //   // Old API Key that has been pushed before.
+    //   infura: "001691a4a3fe4cd6ad500ba14268e7f3",
+    // });
 
-      // const governanceV2HelperContract = new ethers.Contract(
-      //   "0x16ff7583ea21055bf5f929ec4b896d997ff35847", // GovernanceV2Helper address
-      //   abis.aaveGovHelper,
-      //   provider,
-      // );
+    // const governanceV2HelperContract = new ethers.Contract(
+    //   "0x16ff7583ea21055bf5f929ec4b896d997ff35847", // GovernanceV2Helper address
+    //   abis.aaveGovHelper,
+    //   provider,
+    // );
 
-      // const data = await governanceV2HelperContract.getProposals(
-      //   "0",
-      //   "0xFFFFFFFF",
-      //   "0xEC568fffba86c094cf06b22134B23074DFE2252c"
-      // );
+    // const data = await governanceV2HelperContract.getProposals(
+    //   "0",
+    //   "0xFFFFFFFF",
+    //   "0xEC568fffba86c094cf06b22134B23074DFE2252c"
+    // );
 
-      // const promiseArray = [] as any;
-      // const array = [] as any;
-      // for (let i = 0; i < data.length; i++) {
-      //   const cid = parseIpfsHash(data[i].ipfsHash);
+    // const promiseArray = [] as any;
+    // const array = [] as any;
+    // for (let i = 0; i < data.length; i++) {
+    //   const cid = parseIpfsHash(data[i].ipfsHash);
 
-      //   promiseArray.push(
-      //     new Promise((resolve, reject) => {
-      //       resolve(get(cid));
-      //     })
-      //   );
+    //   promiseArray.push(
+    //     new Promise((resolve, reject) => {
+    //       resolve(get(cid));
+    //     })
+    //   );
 
-      //   array.push({
-      //     forVotes: data[i].forVotes.toString(),
-      //     againstVotes: data[i].againstVotes.toString(),
-      //     proposalState: data[i].proposalState,
-      //     ipfsHash: data[i].ipfsHash,
-      //     id: data[i].id,
-      //   });
-      // }
-
-    }
+    //   array.push({
+    //     forVotes: data[i].forVotes.toString(),
+    //     againstVotes: data[i].againstVotes.toString(),
+    //     proposalState: data[i].proposalState,
+    //     ipfsHash: data[i].ipfsHash,
+    //     id: data[i].id,
+    //   });
+    // }
+    // }
     useEffect(() => {
       async function fetchAccount() {
         // const onChain = await fetchOnChainData();
         // setOnChainData(onChain);
         try {
-          if (!provider) {
-            return;
-          }
+          // if (!provider) {
+          //   return;
+          // }
           // Load the user's accounts.
           const accounts = await provider.listAccounts();
-          // const signer = await provider.getSigner(0);
 
           setAccount(accounts[0]);
-          // setSigner(signer);
 
           // Resolve the ENS name for the first account.
           const name = await provider.lookupAddress(accounts[0]);
@@ -145,7 +143,7 @@ const ConnectWallet = () => {
     //   const file = Buffer.concat(buffers);
     //   return file.toString();
     // }
-    
+
     // const testConnectToAave = async () => {
 
 
@@ -175,8 +173,10 @@ const ConnectWallet = () => {
 
 
     return (
-      <>
-        <StyledButton
+      <div style={{marginRight: '16px'}}>
+        <Button
+          variant="outlined"
+          color="primary"
           onClick={() => {
             if (!provider) {
               loadWeb3Modal();
@@ -187,20 +187,14 @@ const ConnectWallet = () => {
         >
           {rendered === "" && "Connect Wallet"}
           {rendered !== "" && " disconnect from: " + rendered}
-        </StyledButton>
-        {/* <StyledButton onClick={() => {
-          console.log(onChainData)
-        }}>console.log</StyledButton> */}
-      </>
+        </Button>
+      </div>
     );
   }
 
   return (
     <>
       <WalletButton provider={provider} loadWeb3Modal={loadWeb3Modal} logoutOfWeb3Modal={logoutOfWeb3Modal} />
-      {/* <StyledButton onClick={() => readOnChainData()}>
-        Read On-Chain Balance
-      </StyledButton> */}
     </>
   );
 }

@@ -1,7 +1,7 @@
 import ProposalItem from "./ProposalItem";
 interface IProposalItemListProps {
   data: any;
-  onClick: (item: any) => void;
+  onClick: (e: React.MouseEvent<HTMLElement>, item: any) => void;
 };
 
 const ProposalItemList = (props: IProposalItemListProps) => {
@@ -12,8 +12,8 @@ const ProposalItemList = (props: IProposalItemListProps) => {
           display: 'flex',
           flexDirection: 'column',
           padding: '16px 32px 24px 16px'
-        }}>
-          <ProposalItem key={item?.id} proposalItem={item} onClick={props.onClick}/>
+        }} key={item?.id}>
+          <ProposalItem  proposalItem={item} onClick={props.onClick}/>
         </div>
       ))}
 
