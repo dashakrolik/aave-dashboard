@@ -10,4 +10,4 @@ From the root of the project run `yarn react-app:start`
 
 ## Screenshot of the application 
 
-![Application]()
+![Application](https://raw.githubusercontent.com/dashakrolik/aave-dashboard/main/Screenshot%20of%20the%20application.png)
