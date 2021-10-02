@@ -13,6 +13,8 @@ const GET_PROPOSALS = gql`
       createdTimestamp
       startBlock
       endBlock
+      currentYesVote
+      currentNoVote
     }
   }
 `;

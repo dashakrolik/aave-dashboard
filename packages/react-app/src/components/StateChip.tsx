@@ -14,7 +14,7 @@ const StateChip = (props: IStateChipProps) => {
       case 'Canceled':
         return 'rgb(247, 110, 110)';
       case 'Queued':
-        return 'rgb(216, 207, 107)'  
+        return 'rgb(216, 207, 107)'
       default:
         return '';
     }
@@ -23,10 +23,15 @@ const StateChip = (props: IStateChipProps) => {
   const chipColor = setChipColor();
 
   return (
-    <div className="chip" style={{
-      backgroundColor: chipColor,
-      background: state === 'Active' ? 'linear-gradient(-45deg, #9d56ee, #3318e1)' : chipColor
-    }}>
+    <div className="chip-wrapper">
+      <div className="chip" style={{
+        backgroundColor: chipColor,
+        background: state === 'Active' ? 'linear-gradient(-45deg, #9d56ee, #3318e1)' : chipColor,
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        borderColor: 'white'
+      }}>
+      </div>
       <p className="chip-label">{state}</p>
     </div>
   );

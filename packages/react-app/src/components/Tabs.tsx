@@ -1,24 +1,21 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
-import { StyledTab, StyledTabs } from "../styled-components/Tabs";
 import { useQuery } from "@apollo/react-hooks";
 
-import useWeb3Modal from "../hooks/useWeb3Modal";
+import { StyledTab, StyledTabs } from "../styled-components/Tabs";
 import GET_PROPOSALS from "../graphql/get-proposals";
 import ProposalItemList from "./ProsalItemList";
+import ProposalDetails from "./ProposalDetails";
+import OnChainProposals from "./OnChainProposals";
+import { CircularProgress } from "@material-ui/core";
 
+// @TODO: add error handler
 const Tabs = () => {
   const [value, setValue] = useState(0);
   const { loading, error, data } = useQuery(GET_PROPOSALS);
-  const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
-
-  useEffect(() => {
-    if (!loading && !error && data) {
-      console.log({ proposals: data.proposals });
-    }
-  }, [loading, error, data]);
+  const [selected, setSelected] = useState<any>({});
 
   const handleChange = (_event: any, newValue: any) => setValue(newValue);
 
@@ -27,7 +24,7 @@ const Tabs = () => {
 
     return (
       <div
-        role="tabpanel"
+        role='tabpanel'
         hidden={value !== index}
         id={`simple-tabpanel-${index}`}
         aria-labelledby={`simple-tab-${index}`}
@@ -36,24 +33,39 @@ const Tabs = () => {
         {value === index && (
           <div
             style={{
-              overflow: 'auto',
+              overflowY: 'scroll',
+              overflowX: 'hidden',
               height: '100vh',
               marginRight: '16px',
               marginLeft: '16px',
-              // borderRadius: '0 10px 0 0',
               background: 'linear-gradient(180deg, #943BF3 0%, #5327EE 100%)',
             }}
           >
-            <Typography>{children}</Typography>
+            {children}
+            {loading && 
+              <div style={{
+                justifyContent: 'center',
+                display: 'flex',
+                marginTop: '32px'
+              }}>
+                <CircularProgress color="inherit" />
+              </div>}
           </div>
         )
         }
       </div >
     );
   }
+
+  const OnProposalClick = (e: React.MouseEvent<HTMLElement>, item: TProposalItem) => {
+    // @TODO: fix bug where clicking on show details makes the page scroll to top
+    e.preventDefault();
+    setSelected(item);
+  };
+
   return (
-    <div style={{ position: "fixed", top: "70px", width: "100%" }}>
-      <Box sx={{ width: '100%' }}>
+    <Grid container spacing={1}>
+      <Grid item xs={8}>
         <Box sx={{
           bgcolor: 'rgb(71 6 182 / 81%);',
           width: 'fit-content',
@@ -64,21 +76,25 @@ const Tabs = () => {
           <StyledTabs
             value={value}
             onChange={handleChange}
-            aria-label="styled tabs example"
+            aria-label='styled tabs'
           >
-            <StyledTab label="On-chain" />
-            <StyledTab label="Snapshot" />
+            <StyledTab label='Snapshot' />
+            <StyledTab label='On-Chain' />
           </StyledTabs>
         </Box>
-
         <TabPanel value={value} index={0}>
-          <ProposalItemList data={data?.proposals}/>
+          <ProposalItemList data={data?.proposals} onClick={OnProposalClick} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Item Two
+          <OnChainProposals data={[]} />
         </TabPanel>
-      </Box>
-    </div>
+      </Grid>
+      <Grid item sm={4}>
+        <Box sx={{ width: '92%', marginTop: '48px' }}>
+          <ProposalDetails proposalItem={selected} />
+        </Box>
+      </Grid>
+    </Grid>
   );
 }
 

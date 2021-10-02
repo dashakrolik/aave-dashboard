@@ -12,9 +12,9 @@ export const StyledTabs: any = styled((props) => (
     display: 'flex',
     justifyContent: 'center',
     backgroundColor: 'transparent',
+    overflowY: 'auto'
   },
   '& .MuiTabs-indicatorSpan': {
-    // maxWidth: 40,
     height: '4px',
     width: '100%',
     position: 'absolute',
